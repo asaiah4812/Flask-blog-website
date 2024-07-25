@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Post List Page{% endblock %}
+
+{% include 'includes/navbar.html' %}
+
+{% block content %}
+
+<section class="min-h-screen w-[95%] md:max-w-[75%] mx-auto">
+    <h1 class="text-3xl md:text-4xl font-bold py-8 text-center mt-[4rem]">Post Detail Page</h1>
+    <div class="flex flex-col gap-[0.7rem] mt-[1rem] mx-auto items-center justify-center w-[95%] md:w-[75%]">
+
+<article
+  class="rounded-lg border border-gray-100 bg-white p-4 shadow-sm transition hover:shadow-lg sm:p-6 mx-auto w-full"
+>
+  <span class="inline-block rounded bg-blue-600 p-2 text-white">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path d="M12 14l9-5-9-5-9 5 9 5z" />
+      <path
+        d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+      />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+      />
+    </svg>
+  </span>
+
+  <a href="#">
+    <h3 class="mt-0.5 text-lg font-medium text-gray-900">
+      {{post.title}}
+    </h3>
+  </a>
+
+  <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+    {{post.body}}
+  </p>
+
+</article>
+    
+<form method="POST" action="/create-comment/{{post.id}}" class="w-full ">   
+    <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Create Comment</label>
+    <div class="relative">
+        <input type="search" id="text" name="text" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Comment" required />
+        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Comment</button>
+    </div>
+</form>
+{% for comment in comments %}
+<ol class="relative border-s border-gray-200 dark:border-gray-700 w-full">                  
+    <li class="mb-3 ms-6">            
+        <div class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:bg-gray-700 dark:border-gray-600">
+            <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">{{comment.date_created}}</time>
+            <div class="text-sm font-normal text-gray-500 dark:text-gray-300"><a href="#" class="font-semibold text-blue-600 dark:text-blue-500 hover:underline">@{{comment.user.username}}</a> <span class="bg-gray-100 text-gray-800 text-xs font-normal me-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300">{{comment.text}}</span></div>
+        </div>
+    </li>
+    {% if user.id == comment.author or user.id == post.author %}
+    <a href="/delete-comment/{{comment.id}}" class="bg-red-600 hover:bg-red-500 py-0.5 px-2 text-white rounded-md ml-6 mb-8">Delete</a>
+    {% endif %}
+</ol>
+{% endfor %}
+
+
+
+    </div>
+
+</section>
+
+{% endblock %}

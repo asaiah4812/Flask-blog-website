@@ -1,0 +1,113 @@
+<section class="min-h-screen w-[95%] md:max-w-[75%] mx-auto">
+  <h1 class="text-3xl md:text-4xl font-bold py-8 text-center mt-[4rem]">
+    Post List Page
+  </h1>
+  <div
+    class="flex flex-col gap-[0.7rem] mt-[1rem] mx-auto items-center justify-center"
+  >
+    <!--
+  Heads up! 👋
+
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+    {% for post in posts %}
+    <article
+      class="rounded-lg border border-gray-100 bg-white p-4 shadow-sm transition h-max hover:shadow-lg sm:p-6 w-[80%] mx-auto relative"
+    >
+      <span class="inline-block rounded bg-blue-600 p-2 text-white">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path
+            d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+          />
+        </svg>
+      </span>
+
+      <a href="#">
+        <h3 class="mt-0.5 text-lg font-medium text-gray-900">{{post.title}}</h3>
+      </a>
+
+      <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
+        {{post.body}}
+      </p>
+      <div class="space-y-5 flex flex-col">
+        <div class="flex justify-between items-center">
+          <a
+            href="/posts/{{post.user.username}}"
+            class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600"
+          >
+            @{{post.user.username}}
+
+            <span
+              aria-hidden="true"
+              class="block transition-all text-gray-400 group-hover:ms-0.5 rtl:rotate-180"
+            >
+              Date | {{post.date_created}}
+            </span>
+          </a>
+          {% if user.id == post.author %}
+          <a
+            href="/delete-post/{{post.id}}"
+            class="bg-red-500 hover:bg-red-300 text-white py-2 px-4 rounded-md outline-none"
+            >Delete</a
+          >
+          {% endif %}
+        </div>
+        <div class="flex items-center justify-between">
+            <a
+              href="/post/{{post.id}}"
+              class="py-2 px-4 mt-10 bg-blue-500 hover:bg-blue-400 rounded-md text-white self-start"
+              >View Detail</a
+            >
+            <span ><small id="likes-count-{{post.id}}">{{post.likes|length}}</small> Likes</span>
+        </div>
+      </div>
+      <span   class="absolute top-0 right-0 mt-6 mr-6">
+        <!-- {% set liked = false %}
+
+        {% for like in post.likes %}
+
+        {% if like.author == user.id %} -->
+
+        <!-- {% set liked = true %}
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% if liked %}
+
+        {% set icon_class = "solid" %}
+        
+        {% else %}
+        
+        {% set icon_class = "" %}
+
+        {% endif %} -->
+          <box-icon
+          id="like-button-{{post.id}}"
+          onclick="like({{post.id}})"
+            name="like"
+            type="solid"
+            class="cursor pointer"
+            animation="tada"
+            color="#00547d"
+          > </box-icon>
+
+      </span>
+    </article>
+    {% endfor %}
+  </div>
+</section>

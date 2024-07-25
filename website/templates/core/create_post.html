@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Post Page {% endblock %}
+
+{% include 'includes/navbar.html' %}
+
+{% block content %}
+
+
+<!--
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+-->
+
+<section class="bg-gray-100 h-screen flex items-center justify-center">
+  <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+      <div class="lg:col-span-2 lg:py-12">
+        <h1 class="font-bold text-2xl md:text-3xl" >Create Post Page</h1>
+        <p class="max-w-xl text-lg">
+          At the same time, the fact that we are wholly owned and totally independent from
+          manufacturer and other group control gives you confidence that we will only recommend what
+          is right for you.
+        </p>
+
+        <div class="mt-8">
+          <a href="/" class="text-2xl font-bold text-pink-600">back home </a>
+
+          <address class="mt-2 not-italic">282 Kevin Brook, Imogeneborough, CA 58517</address>
+        </div>
+      </div>
+
+      <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+        <form action="#" method="POST" class="space-y-4">
+          <div>
+            <label class="sr-only" for="name">Title</label>
+            <input
+              class="w-full rounded-lg border border-gray-200 p-3 text-sm"
+              placeholder="Name"
+              type="text"
+              id="name"
+              name="title"
+            />
+          </div>
+
+
+          <div>
+            <label class="sr-only" for="message">Message</label>
+
+            <textarea 
+              class="w-full rounded-lg border-gray-200 p-3 text-sm border"
+              placeholder="Message"
+              rows="8"
+              id="message"
+              name="body"
+            ></textarea>
+          </div>
+
+          <div class="mt-4">
+            <button
+              type="submit"
+              class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+            >
+              Create Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
